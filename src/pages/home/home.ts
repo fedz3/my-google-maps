@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Vibration } from '@ionic-native/vibration';
+import { Geolocation } from '@ionic-native/geolocation';
+
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -10,9 +12,10 @@ import { HttpClient } from '@angular/common/http';
 export class HomePage {
 
   results: any
-  param:any = {}
-
-  constructor(public navCtrl: NavController, private vibration: Vibration, private http: HttpClient) {
+  param: any = {}
+  lat: any
+  long: any
+  constructor(public navCtrl: NavController, private vibration: Vibration, private http: HttpClient, private geolocation: Geolocation) {
 
   }
 
@@ -33,14 +36,22 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    
+    this.geolocation.getCurrentPosition().then((resp) => {
+      console.log(resp.coords.latitude)
+      console.log(resp.coords.longitude)
+      this.lat = resp.coords.latitude
+      this.long = resp.coords.longitude
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
   }
 
   send() {
     let data = this.param
-    
-    this.http.get("/api/get_users").subscribe(data => console.log(data), err => console.log(err))    
+
+    this.http.get("/api/get_users").subscribe(data => console.log(data), err => console.log(err))
   }
+
   onSubmit() {
     let data = this.param
     // console.log(data)

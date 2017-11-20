@@ -1,8 +1,14 @@
 {
   "name": "my-geo",
-  "app_id": "",
+  "app_id": "89cb8a00",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://localhost:8000/api"
+    }
+  ]
 }

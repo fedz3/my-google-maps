@@ -14,8 +14,8 @@ declare var google;
 export class HomePage {
 
   @ViewChild('map') mapElement: ElementRef;
-  map: any;
-
+  map: any
+  error: any
   results: any
   param: any = {}
   lat: any
@@ -47,7 +47,8 @@ export class HomePage {
       this.lat = resp.coords.latitude
       this.long = resp.coords.longitude
     }).catch((error) => {
-      console.log('Error getting location', error);
+      // console.log('Error getting location', error);
+      this.error = error
     });
 
     this.loadMap();

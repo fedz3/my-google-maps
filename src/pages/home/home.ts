@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Vibration } from '@ionic-native/vibration';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -12,6 +12,9 @@ declare var google;
   templateUrl: 'home.html'
 })
 export class HomePage {
+
+  @ViewChild('map') mapElement: ElementRef;
+  map: any;
 
   results: any
   param: any = {}
@@ -46,6 +49,22 @@ export class HomePage {
     }).catch((error) => {
       console.log('Error getting location', error);
     });
+
+    this.loadMap();
+  }
+
+  loadMap() {
+
+    let latLng = new google.maps.LatLng(-34.9290, 138.6010);
+
+    let mapOptions = {
+      center: latLng,
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
   }
 
   send() {

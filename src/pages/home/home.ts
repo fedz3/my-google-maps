@@ -5,6 +5,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 
 import { HttpClient } from '@angular/common/http';
 
+declare var google;
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'

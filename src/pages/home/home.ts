@@ -12,14 +12,16 @@ declare var google;
   templateUrl: 'home.html'
 })
 export class HomePage {
-
-  @ViewChild('map') mapElement: ElementRef;
+  error_message: any;
+  error_code: any;
   map: any
-  error: any
   results: any
   param: any = {}
   lat: any
   long: any
+  
+  @ViewChild('map') mapElement: ElementRef;
+  
   constructor(public navCtrl: NavController, private vibration: Vibration, private http: HttpClient, private geolocation: Geolocation) {
 
   }
@@ -47,8 +49,9 @@ export class HomePage {
       this.lat = resp.coords.latitude
       this.long = resp.coords.longitude
     }).catch((error) => {
-      // console.log('Error getting location', error);
-      this.error = error
+      console.log('Error getting location', error);
+      this.error_code = error.code
+      this.error_message = error.message
     });
 
     this.loadMap();

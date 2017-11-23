@@ -19,9 +19,9 @@ export class HomePage {
   param: any = {}
   lat: any
   long: any
-  
+
   @ViewChild('map') mapElement: ElementRef;
-  
+
   constructor(public navCtrl: NavController, private vibration: Vibration, private http: HttpClient, private geolocation: Geolocation) {
 
   }
@@ -43,6 +43,16 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
+
+    this.getCurrentPosition();
+    this.loadMap();
+  }
+
+  get_my_location() {
+    this.getCurrentPosition();
+  }
+
+  getCurrentPosition() {
     this.geolocation.getCurrentPosition().then((resp) => {
       console.log(resp.coords.latitude)
       console.log(resp.coords.longitude)
@@ -53,8 +63,6 @@ export class HomePage {
       this.error_code = error.code
       this.error_message = error.message
     });
-
-    this.loadMap();
   }
 
   loadMap() {

@@ -88,4 +88,8 @@
     <allow-navigation href="http://192.168.10.67:8100" />
     <engine name="android" spec="~6.3.0" />
     <allow-navigation href="http://192.168.10.67:8101" />
+    <plugin name="cordova-plugin-googlemaps" spec="^2.1.1">
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCi1BaWymzmA4QzeXbWQ_S-VP1s4siT3x8" />
+        <variable name="API_KEY_FOR_IOS" value="AIzaSyCi1BaWymzmA4QzeXbWQ_S-VP1s4siT3x8" />
+    </plugin>
 </widget>

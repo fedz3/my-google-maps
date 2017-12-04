@@ -14,5 +14,11 @@
 
 
 <ion-content padding>
-<my-profile></my-profile>
+  <!-- <my-profile></my-profile> -->
+  <ion-list>
+    <button ion-item *ngFor="let values of posts">
+      {{ values.title }}
+      <p>{{ values.body }}</p>
+    </button>
+  </ion-list>
 </ion-content>

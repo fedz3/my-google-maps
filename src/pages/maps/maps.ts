@@ -21,8 +21,8 @@ export class MapsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private geolocation: Geolocation) { }
 
   ionViewDidLoad() {
-    // this.loadMap(null);
-    this.loadCurrentLocation()
+    this.loadMap(null);
+    // this.loadCurrentLocation()
   }
 
   loadCurrentLocation() {
@@ -48,7 +48,7 @@ export class MapsPage {
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     let myLat = new google.maps.LatLng(16.432245, 102.797499)
-    this.addMarker(myLat)
+    this.addMarker(latLng)
   };
 
   addMarker(LatLng: any) {

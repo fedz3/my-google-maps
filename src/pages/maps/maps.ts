@@ -21,8 +21,8 @@ export class MapsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private geolocation: Geolocation) { }
 
   ionViewDidLoad() {
-    this.loadMap(null);
-    // this.loadCurrentLocation()
+    // this.loadMap(null);
+    this.loadCurrentLocation()
   }
 
   loadCurrentLocation() {

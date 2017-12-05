@@ -1,10 +1,10 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>maps</ion-title>
+  <ion-navbar color="danger">
+    <ion-title>My&nbsp;Map</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="addMarker()">
-        <ion-icon name="add"></ion-icon>Add Marker</button>
+      <button ion-button (click)="loadMap()">
+        <ion-icon name="info"></ion-icon>Load&nbsp;KK&nbsp;Map</button>
     </ion-buttons>
   </ion-navbar>
 
@@ -12,5 +12,6 @@
 
 
 <ion-content>
+  <h1 *ngIf="!statusErr">{{ msgErr }}</h1>
   <div #map id="map"></div>
 </ion-content>

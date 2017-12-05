@@ -1,14 +1,5 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import {
-  GoogleMaps,
-  GoogleMap,
-  GoogleMapsEvent,
-  GoogleMapOptions,
-  CameraPosition,
-  MarkerOptions,
-  Marker
-} from '@ionic-native/google-maps';
 import { MapsPage } from './maps';
 
 @NgModule({
@@ -18,6 +9,6 @@ import { MapsPage } from './maps';
   imports: [
     IonicPageModule.forChild(MapsPage),
   ],
-  providers: [GoogleMaps]
+  providers: []
 })
 export class MapsPageModule { }

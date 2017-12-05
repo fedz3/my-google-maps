@@ -1,14 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {
-  GoogleMaps,
-  GoogleMap,
-  GoogleMapsEvent,
-  GoogleMapOptions,
-  CameraPosition,
-  MarkerOptions,
-  Marker
- } from '@ionic-native/google-maps';
+
 
 @IonicPage({
   name: "maps"
@@ -19,11 +11,19 @@ import {
 })
 export class MapsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps) {
+  // @ViewChild('map') mapRef: ElementRef
+
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MapsPage');
+    // console.log('ionViewDidLoad MapsPage');
+    this.loadMap()
   }
+
+  loadMap() {
+   
+  };
+
 
 }

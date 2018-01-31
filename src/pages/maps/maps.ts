@@ -11,15 +11,16 @@ import { Geolocation } from '@ionic-native/geolocation';
 })
 export class MapsPage {
   msgErr: string;
-  statusErr: boolean = true;
 
   @ViewChild('map') mapElement: ElementRef;
 
   map: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private geolocation: Geolocation) { }
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private geolocation: Geolocation) { }
 
   ionViewDidLoad() {
-    // this.loadMap(null);
     this.loadCurrentLocation()
   }
 
@@ -29,9 +30,7 @@ export class MapsPage {
       this.loadMap(latLng);
     })
       .catch((err) => {
-        // alert('your location is not available')
         this.msgErr = 'your location is not available';
-        this.statusErr = false;
         console.log(err);
       });
   };
@@ -44,9 +43,10 @@ export class MapsPage {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
+    this.msgErr = null;
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     let myLat = new google.maps.LatLng(16.432245, 102.797499)
-    this.addMarker(latLng)
+    this.addMarker(latLng);
   };
 
   addMarker(LatLng: any) {

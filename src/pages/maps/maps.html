@@ -12,6 +12,6 @@
 
 
 <ion-content>
-  <h1 *ngIf="!statusErr">{{ msgErr }}</h1>
+  <h1 *ngIf="msgErr != null">{{ msgErr }}</h1>
   <div #map id="map"></div>
 </ion-content>

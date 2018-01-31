@@ -1,8 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
 import { Geolocation } from '@ionic-native/geolocation';
-import { ConnectivityServiceProvider } from '../../providers/connectivity-service/connectivity-service';
 
 @IonicPage({
   name: "maps"
@@ -17,41 +16,49 @@ export class MapsPage {
   @ViewChild('map') mapElement: ElementRef;
 
   map: any;
-  mapInitialised: boolean;
   apiKey: string;
-  // isOnline: boolean;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private geolocation: Geolocation,
-    private platform: Platform,
     private network: Network,
-    private connectivityService: ConnectivityServiceProvider
+    private loadingCtrl: LoadingController,
   ) {
-    this.mapInitialised = false;
+
   }
 
   ionViewDidLoad() {
     // this.loadCurrentLocation();
-   this.isOnline(); 
+    this.isOnline();
   }
 
   isOnline() {
-    
+    let loading = this.loadingCtrl.create({
+      content: 'Load อยู่เด้อ อย่าฟ้าวหลาย'
+    });
+
+    loading.present();
+
     this.network.onConnect().subscribe(() => {
       console.log('is Online !');
-      this.apiKey = 'http://maps.google.com/maps/api/js?key=AIzaSyBqE_jVvoFjZgO5EYWIgoLrX1DiTBf6vvE';
+      loading.dismiss();
+
+      this.apiKey = 'http://maps.google.com/maps/api/js?key=AIzaSyBqE_jVvoFjZgO5EYWIgoLrX1DiTBf6vvE&callback=mapInit';
       let script = document.createElement("script");
       script.id = 'googleMaps';
       script.src = this.apiKey;
-
+      
       document.body.appendChild(script);
-      // setTimeout(() => this.loadMap(null), 2000);
+      
+      window['mapInit'] = () => {
+        this.loadMap(null);
+      }
+
     }, () => {
-      // let script_map = document.getElementById('googleMaps');
-      // document.body.removeChild(script_map);
-      // console.log('Error')
+      console.log('Your NOT Online !');
+      this.msgErr = 'Your NOT Online !';
+      loading.dismiss();
     });
   }
 
@@ -67,6 +74,7 @@ export class MapsPage {
   };
 
   loadMap(latLng: any) {
+
     latLng = latLng || new google.maps.LatLng(16.4322, 102.8236);
     let mapOptions = {
       center: latLng,
@@ -76,7 +84,6 @@ export class MapsPage {
 
     this.msgErr = null;
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-    let myLat = new google.maps.LatLng(16.432245, 102.797499)
     this.addMarker(latLng);
   };
 
@@ -89,12 +96,13 @@ export class MapsPage {
     });
 
     let content = "<h4>Information!</h4>";
-
-    this.addInfoWindow(marker, content);
+    let lat = 16.4322;
+    let long = 102.8236;
+    this.addInfoWindow(marker, content, name, lat, long);
 
   };
 
-  addInfoWindow(marker, content) {
+  addInfoWindow(marker, content, name, lat, long) {
 
     let infoWindow = new google.maps.InfoWindow({
       content: content
@@ -102,6 +110,9 @@ export class MapsPage {
 
     google.maps.event.addListener(marker, 'click', () => {
       infoWindow.open(this.map, marker);
+      let myLinkLocation = 'geo:' + lat + ',' + long + '?q=' + name;
+
+      window.open(myLinkLocation, '_system');
     });
 
   };

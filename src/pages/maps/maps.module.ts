@@ -4,7 +4,6 @@ import { Network } from '@ionic-native/network';
 import { Geolocation } from '@ionic-native/geolocation';
 import { MapsPage } from './maps';
 import { HttpClientModule } from '@angular/common/http';
-import { ConnectivityServiceProvider } from '../../providers/connectivity-service/connectivity-service';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,6 @@ import { ConnectivityServiceProvider } from '../../providers/connectivity-servic
   providers: [
     Geolocation,
     Network,
-    ConnectivityServiceProvider
   ]
 })
 export class MapsPageModule { }

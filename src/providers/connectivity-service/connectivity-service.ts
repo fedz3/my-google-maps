@@ -15,7 +15,10 @@ export class ConnectivityServiceProvider {
   ) {
     this.onDevice = this.platform.is('cordova');
     console.log(this.onDevice)
-    console.log(this.network)
+    console.log(this.network.type)
+    if (this.network.type === 'wifi') {
+      alert('wifi');
+    }
   }
 
 

@@ -37,7 +37,7 @@ export class MapsPage {
     })
       .catch((err) => {
         this.msgErr = 'your location is not available';
-        console.log(err);
+        console.log(JSON.stringify(err));
       });
   };
 

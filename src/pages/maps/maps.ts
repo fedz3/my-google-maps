@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { ConnectivityServiceProvider } from '../../providers/connectivity-service/connectivity-service';
 
 @IonicPage({
   name: "maps"
@@ -15,10 +16,15 @@ export class MapsPage {
   @ViewChild('map') mapElement: ElementRef;
 
   map: any;
+  mapInitialised: boolean = false;
+  apiKey: string;
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
-    private geolocation: Geolocation) { }
+    private geolocation: Geolocation,
+    private connectivityService : ConnectivityServiceProvider
+  ) { }
 
   ionViewDidLoad() {
     this.loadCurrentLocation()

@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
-import { ConnectivityServiceProvider } from '../providers/connectivity-service/connectivity-service';
 
 @NgModule({
   declarations: [
@@ -23,8 +22,6 @@ import { ConnectivityServiceProvider } from '../providers/connectivity-service/c
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    ConnectivityServiceProvider
-    
   ]
 })
 export class AppModule { }

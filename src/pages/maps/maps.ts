@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { Network } from '@ionic-native/network';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ConnectivityServiceProvider } from '../../providers/connectivity-service/connectivity-service';
 
@@ -16,18 +17,39 @@ export class MapsPage {
   @ViewChild('map') mapElement: ElementRef;
 
   map: any;
-  mapInitialised: boolean = false;
+  mapInitialised: boolean;
   apiKey: string;
+  // isOnline: boolean;
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
+    public navCtrl: NavController,
+    public navParams: NavParams,
     private geolocation: Geolocation,
-    private connectivityService : ConnectivityServiceProvider
-  ) { }
+    private platform: Platform,
+    private network: Network,
+    private connectivityService: ConnectivityServiceProvider
+  ) {
+    this.mapInitialised = false;
+  }
 
   ionViewDidLoad() {
-    this.loadCurrentLocation()
+    // this.loadCurrentLocation();
+   this.isOnline(); 
+  }
+
+  isOnline() {
+    this.network.onConnect().subscribe(() => {
+      this.apiKey = 'http://maps.google.com/maps/api/js?key=AIzaSyBqE_jVvoFjZgO5EYWIgoLrX1DiTBf6vvE';
+      let script = document.createElement("script");
+      script.id = 'googleMaps';
+      script.src = this.apiKey;
+
+      document.body.appendChild(script);
+      setTimeout(() => this.loadMap(null), 2000);
+    }, () => {
+      let script_map = document.getElementById('googleMaps');
+      document.body.removeChild(script_map);
+    });
   }
 
   loadCurrentLocation() {
@@ -37,7 +59,7 @@ export class MapsPage {
     })
       .catch((err) => {
         this.msgErr = 'your location is not available';
-        console.log(JSON.stringify(err));
+        // console.log(JSON.stringify(err));
       });
   };
 

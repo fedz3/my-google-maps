@@ -31,17 +31,25 @@ export class MapsPage {
   ionViewDidLoad() {
     // this.loadCurrentLocation();
     this.isOnline();
+    // this.network.onConnect().subscribe((data) => {
+    //   console.log('OK');
+    //   console.log(JSON.stringify(data));
+    // }, err => {
+    //   console.log(JSON.stringify(err));
+    // })
+    
   }
 
   isOnline() {
+    
     let loading = this.loadingCtrl.create({
       content: 'Load อยู่เด้อ อย่าฟ้าวหลาย'
     });
 
     loading.present();
 
-    this.network.onConnect().subscribe(() => {
-      console.log('is Online !');
+    this.network.onConnect().subscribe((data) => {
+      console.log('is Online !', JSON.stringify(data.type));
       loading.dismiss();
 
       this.apiKey = 'http://maps.google.com/maps/api/js?key=AIzaSyBqE_jVvoFjZgO5EYWIgoLrX1DiTBf6vvE&callback=mapInit';
@@ -55,8 +63,8 @@ export class MapsPage {
         this.loadMap(null);
       }
 
-    }, () => {
-      console.log('Your NOT Online !');
+    }, (err) => {
+      console.log('Your NOT Online !', JSON.stringify(err));
       this.msgErr = 'Your NOT Online !';
       loading.dismiss();
     });

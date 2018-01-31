@@ -38,17 +38,20 @@ export class MapsPage {
   }
 
   isOnline() {
+    
     this.network.onConnect().subscribe(() => {
+      console.log('is Online !');
       this.apiKey = 'http://maps.google.com/maps/api/js?key=AIzaSyBqE_jVvoFjZgO5EYWIgoLrX1DiTBf6vvE';
       let script = document.createElement("script");
       script.id = 'googleMaps';
       script.src = this.apiKey;
 
       document.body.appendChild(script);
-      setTimeout(() => this.loadMap(null), 2000);
+      // setTimeout(() => this.loadMap(null), 2000);
     }, () => {
-      let script_map = document.getElementById('googleMaps');
-      document.body.removeChild(script_map);
+      // let script_map = document.getElementById('googleMaps');
+      // document.body.removeChild(script_map);
+      // console.log('Error')
     });
   }
 
